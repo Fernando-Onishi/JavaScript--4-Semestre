@@ -52,7 +52,7 @@ function mostrarClima(dadosClima, nomeCidade){
 
     let temperatura = document.createElement("p")
     temperatura.innerHTML = "Temperatura: " + atual.
-    temperature_2m + "°C    "
+    temperature_2m + "°C"
 
     let sensacao = document.createElement("p")
     sensacao.innerHTML = "Sensação: " + atual.

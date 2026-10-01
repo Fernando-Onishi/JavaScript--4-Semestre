@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <input type="text" id="input" placeholder="Nome do Pokemon">    
-    <button id="botao">Buscar</button>
-    <div id="resultado"></div>
+    <div class="pokedex-container">
+        <div class="search-box">
+            <input type="text" id="input" placeholder="Nome ou ID do Pokémon">    
+            <button id="botao">Buscar</button>
+        </div>
+        
+        <div id="resultado"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>

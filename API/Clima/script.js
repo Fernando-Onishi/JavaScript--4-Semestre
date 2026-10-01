@@ -2,6 +2,17 @@ let input = document.getElementById("input")
 let botao = document.getElementById("botao")
 let resultado = document.getElementById("resultado")
 
+// Array para converter o número do dia da semana (0 a 6) em texto
+const diasDaSemana = [
+    "Domingo", 
+    "Segunda-feira", 
+    "Terça-feira", 
+    "Quarta-feira", 
+    "Quinta-feira", 
+    "Sexta-feira", 
+    "Sábado"
+]
+
 function traduzirClima(codigo) { 
 if (codigo == 0) return { texto: "Céu limpo", icone: "☀️"
 }
@@ -27,9 +38,14 @@ if (codigo == 95) return { texto: "Tempestade", icone:
 return { texto: "Indefinido", icone: "❔" }
 }
 
-function mostrarClima(dadosClima){
+function mostrarClima(dadosClima, nomeCidade){
     let atual = dadosClima.current
     let clima = traduzirClima(atual.weather_code)
+
+    // Nome da cidade pesquisada
+    let cidadeTitulo = document.createElement("h1")
+    cidadeTitulo.className = "cidade-titulo"
+    cidadeTitulo.innerHTML = nomeCidade
 
     let titulo = document.createElement("h2")
     titulo.innerHTML = clima.icone + " " + clima.texto
@@ -45,6 +61,7 @@ function mostrarClima(dadosClima){
     let umidade = document.createElement("p")
     umidade.innerHTML = "Umidade: " + atual.relative_humidity_2m + "%"
 
+    resultado.appendChild(cidadeTitulo)
     resultado.appendChild(titulo)
     resultado.appendChild(temperatura)
     resultado.appendChild(sensacao)
@@ -53,6 +70,13 @@ function mostrarClima(dadosClima){
 
 function mostrarPrevisao(dadosClima){
     let dia = dadosClima.daily
+
+    // Título "Próximos dias"
+    let tituloPrevisao = document.createElement("h3")
+    tituloPrevisao.className = "titulo-previsao"
+    tituloPrevisao.innerHTML = "Próximos dias"
+    resultado.appendChild(tituloPrevisao)
+
     let previsao = document.createElement("ul")
     "[seg, ter, quar, qui, sex, sab, dom]"
 
@@ -61,8 +85,15 @@ function mostrarPrevisao(dadosClima){
         let minima = dia.temperature_2m_min[indice]
         let maxima =  dia.temperature_2m_max[indice]
 
+        // Descobre o dia da semana a partir da data (formato YYYY-MM-DD)
+        let dataObj = new Date(data + "T00:00:00")
+        let nomeDiaSemana = diasDaSemana[dataObj.getDay()]
+
+        // Formata a data para DD/MM
+        let dataFormatada = dataObj.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })
+
         let item = document.createElement("li")
-        item.innerHTML = data + ":" + clima.icone + " " + minima + "°C" + maxima + "°C"
+        item.innerHTML = "<span>" + nomeDiaSemana + " <small>(" + dataFormatada + ")</small></span> <span>" + clima.icone + " " + minima + "°C / " + maxima + "°C</span>"
 
         previsao.appendChild(item)
     }
@@ -86,6 +117,9 @@ async function buscarClima(cidadeNome) {
     let cidade = dados.results[0]
     let latitude = cidade.latitude
     let longitude = cidade.longitude
+    
+    // Nome oficial retornado pela API
+    let nomeFormatado = cidade.name + (cidade.admin1 ? ", " + cidade.admin1 : "")
 
     let resposta = await fetch(
         "https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude +  "&current=temperature_2m,relative_humidity_2m,weather_code,apparent_temperature" +"&daily=temperature_2m_max,temperature_2m_min,weather_code" + "&timezone=auto"
@@ -94,7 +128,7 @@ async function buscarClima(cidadeNome) {
     let dadosClima = await resposta.json()
     console.log(dadosClima)
     resultado.innerHTML = ""
-    mostrarClima(dadosClima)
+    mostrarClima(dadosClima, nomeFormatado)
     mostrarPrevisao(dadosClima)
 }catch (erro){
     resultado.innerHTML = "Não foi possivel conectar a API"

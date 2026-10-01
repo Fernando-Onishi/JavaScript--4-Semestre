@@ -1,0 +1,121 @@
+/* Reset básico e centralização na tela */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #2b2b2b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Corpo principal da Pokédex */
+.pokedex-container {
+  background-color: #dc0a2d;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  padding: 25px 20px;
+  box-shadow: 0 10px 0 #8b0000, 0 15px 25px rgba(0, 0, 0, 0.5);
+  border: 4px solid #111;
+  position: relative;
+}
+
+/* Luzes/Lentes no topo da Pokédex */
+.pokedex-container::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 35% 35%, #85d7ff, #0088cc);
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 3px #111, 0 0 15px #0088cc;
+  margin-bottom: 20px;
+}
+
+/* Área de Busca (Input + Botão) */
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 3px solid #111;
+  background-color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #ffde00;
+  box-shadow: 0 0 8px rgba(255, 222, 0, 0.8);
+}
+
+button {
+  background-color: #ffde00;
+  color: #111;
+  font-weight: bold;
+  border: 3px solid #111;
+  border-radius: 8px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 0 #b39c00;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+button:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #b39c00;
+}
+
+/* Visor/Tela Principal (onde fica a div #resultado) */
+#resultado {
+  background-color: #dedede;
+  border: 4px solid #111;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-align: center;
+}
+
+/* Estilização para quando o Pokémon for carregado dentro da div #resultado */
+#resultado img {
+  width: 140px;
+  height: 140px;
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+}
+
+#resultado h2 {
+  font-size: 24px;
+  text-transform: capitalize;
+  color: #222;
+  margin-top: 10px;
+}
+
+#resultado p {
+  color: #444;
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: 600;
+}

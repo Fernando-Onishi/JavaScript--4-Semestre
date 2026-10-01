@@ -21,7 +21,7 @@ if (codigo == 1 || codigo == 2 || codigo == 3) return { texto:
 "Nublado", icone: "⛅" }
 
 if (codigo == 45 || codigo == 48) return { texto: "Neblina",
-icone: "🌫️" }
+icone: "🌫️️" }
  
 if (codigo >= 51 && codigo <= 65) return { texto:
 "Chuva", icone: "🌧️" }

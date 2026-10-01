@@ -7,7 +7,7 @@
 
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-              url('https://wallpapers.com/images/hd/cloudy-sky-blue-aesthetic-pc-y2hmy057gh1hfu44.jpg') no-repeat center center fixed;
+  url('https://wallpapers.com/images/hd/cloudy-sky-blue-aesthetic-pc-y2hmy057gh1hfu44.jpg') no-repeat center center fixed;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -16,16 +16,16 @@ body {
   padding: 20px;
 }
 
-/* Card Principal */
+/* Card Principal (Glassmorphism) */
 .container {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 24px;
-  padding: 30px;
+  padding: 40px;
   width: 100%;
-  max-width: 420px;
+  max-width: 1200px; /* Expandido para acomodar todos os cards maiores na horizontal */
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   color: #ffffff;
 }
@@ -78,42 +78,77 @@ body {
   transform: scale(0.96);
 }
 
-/* Estilização dos elementos gerados pelo seu JavaScript dentro do #resultado */
+/* Estilização do Resultado e Clima Atual */
 #resultado {
   text-align: center;
 }
 
+.cidade-titulo {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
 #resultado h2 {
-  font-size: 30px;
-  margin-bottom: 15px;
+  font-size: 32px;
+  margin-bottom: 12px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 #resultado p {
   font-size: 16px;
-  margin: 6px 0;
+  margin: 4px 0;
   color: rgba(255, 255, 255, 0.95);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Lista gerada pelo mostrarPrevisao */
-#resultado ul {
-  list-style: none;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* Título da Previsão */
+.titulo-previsao {
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 16px;
+  text-align: left;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-#resultado li {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 12px 16px;
-  border-radius: 12px;
+/* Lista na horizontal sem quebra de linha (todos lado a lado) */
+#resultado ul {
+  list-style: none;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; /* Garante que nenhum card vá para a linha de baixo */
+  gap: 12px;
   justify-content: space-between;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+/* Cards individuais maiores e flexíveis */
+#resultado li {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 18px 12px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex: 1; /* Faz todos os cards se expandirem igualmente */
+  text-align: center;
+  gap: 8px;
+}
+
+#resultado li span {
   font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#resultado li small {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 2px;
 }
